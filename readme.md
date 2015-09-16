@@ -1,27 +1,34 @@
-## Laravel PHP Framework
+# Heroku CRUD Demo
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+## How I got to here
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+I followed the tutorials [Deploying a Laravel Application to Heroku](http://www.easylaravelbook.com/blog/2015/01/31/deploying-a-laravel-application-to-heroku/) & [Installing a Laravel app on Heroku](https://mattstauffer.co/blog/installing-a-laravel-app-on-heroku).
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+I then installed a [crud-generator](https://packagist.org/packages/appzcoder/crud-generator) to make generating scaffolding easy.
 
-## Official Documentation
+## Things to run before we start
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+Add the buildpack to tell Heroku we are PHP app and not a node app
 
-## Contributing
+    heroku config:add BUILDPACK_URL=https://github.com/heroku/heroku-buildpack-php
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+Then add the laravel config keys
 
-## Security Vulnerabilities
+    heroku config:add APP_KEY=f9F8w6B0sQnXK94vCgM2fh76ewMKE7Hp &&
+    heroku config:add APP_DEBUG=true
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+Then lets make a database!
 
-### License
+    heroku addons:create heroku-postgresql:hobby-dev
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+## Making our CRUD
+
+    php artisan crud:generate Person --fields="name:string, email:string, phone:integer, message:text"
+
+Add the route
+
+    Route::resource('person', 'PersonController');
+
+Deploy up to heroku, then run
+
+    php artisan migrate
