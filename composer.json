@@ -6,14 +6,14 @@
     "type": "project",
     "require": {
         "php": ">=5.5.9",
-        "laravel/framework": "5.1.*",
-        "appzcoder/crud-generator"
+        "laravel/framework": "0 - 10",
+        "appzcoder/crud-generator": "0 - 10"
     },
     "require-dev": {
-        "fzaninotto/faker",
-        "mockery/mockery",
-        "phpunit/phpunit",
-        "phpspec/phpspec"
+        "fzaninotto/faker": "0 - 10",
+        "mockery/mockery": "0 - 10",
+        "phpunit/phpunit": "0 - 10",
+        "phpspec/phpspec": "0 - 10"
     },
     "autoload": {
         "classmap": [
